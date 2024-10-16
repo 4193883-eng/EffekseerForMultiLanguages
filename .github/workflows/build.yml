@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: macos-13-large
+          - os: macos-12
             scriptExt: "sh"
             libExt: "dylib"
             name: "macos"
