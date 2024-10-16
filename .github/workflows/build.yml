@@ -12,16 +12,7 @@ jobs:
   buildNative:
     strategy:
       matrix:
-        os: [ubuntu-latest,windows-latest]
         include:
-          - os: ubuntu-latest
-            scriptExt: "sh"
-            libExt: "so"
-            name: "linux"
-          - os: windows-latest
-            scriptExt: "bat"
-            libExt: "dll"
-            name: "windows"
           - os: macos-latest
             scriptExt: "sh"
             libExt: "dylib"
