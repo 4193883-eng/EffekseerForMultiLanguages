@@ -8,6 +8,7 @@ on:
     branches:
       - master
 jobs:
+
   buildNative:
     strategy:
       matrix:
@@ -15,28 +16,30 @@ jobs:
           - os: macos-13
             scriptExt: "sh"
             libExt: "dylib"
-            name: "macos"
+            name: "x86_64"
+          - os: macos-13-xlarge
+            scriptExt: "sh"
+            libExt: "dylib"
+            name: "aarch64"
     name: Build Natives - ${{ matrix.name }}
     runs-on:  ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v3
+
+      - uses: actions/checkout@v2
         with:
             fetch-depth: 1
             submodules: true
 
       - name: Set up JDK 1.8
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v1
         with:
-          java-version: 8.0.422+5.1
-          distribution: 'temurin'
-
+          java-version: 1.8
     
       - name: Install dependencies for macos-latest
         run: |
           brew install swig
           cd src/cpp/Effekseer/
           git submodule update --init --recommend-shallow --depth 1
-
       - name: Generate Swig Wrappers
         shell: bash
         run: |
@@ -44,24 +47,18 @@ jobs:
           chmod +x ./generate_swig_wrapper.${{ matrix.scriptExt }}
           ./generate_swig_wrapper.${{ matrix.scriptExt }}
           cd ..
-
-      - name: Build universal binaries for ${{ matrix.name }}
+      - name: Build natives for ${{ matrix.name }}
         shell: bash
-        run: |
+        run: |  
           mkdir -p build/dist-native
-          
-          # Create a universal binary for both arm64 and x86_64
           cd build
-          cmake -D BUILD_DX12=OFF -D BUILD_EXAMPLES=OFF -DCMAKE_OSX_ARCHITECTURES="arm64;x86_64" ..
+          cmake -D BUILD_DX12=OFF -D BUILD_EXAMPLES=OFF ..
           cmake --build . --config Release
-
-          # Copy the resulting universal binary
-          dest="dist-native/${{ matrix.name }}/universal"
+          dest="dist-native/${{ matrix.name }}"
           mkdir -p "$dest"
-          cp -v src/cpp/Release/*.${{ matrix.libExt }} "$dest" || cp -v src/cpp/*.${{ matrix.libExt }} "$dest"
-
+          cp -v src/cpp/Release/libEffekseerNativeForJava.dylib "$dest"||cp -v src/cpp/libEffekseerNativeForJava.dylib "$dest"
       - name: Upload Natives
         uses: actions/upload-artifact@v4
         with:
-          name: natives-${{ matrix.os }}-universal
-          path: build/dist-native
+          name: libEffekseerNativeForJava-${{ matrix.name }}.dylib
+          path: build/dist-native/libEffekseerNativeForJava.dylib
