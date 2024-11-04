@@ -64,7 +64,12 @@ jobs:
         uses: actions/download-artifact@v4
       - name: Display structure of downloaded files
         run: | 
+          echo LS
           ls -R
+          brew install tree
+          echo Tree:      
+          tree
+          echo Pwd: 
           pwd
       - name: Build universal binary
         shell: bash
