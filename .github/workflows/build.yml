@@ -80,4 +80,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: libEffekseerNativeForJava-universal.dylib
-          path:  /Users/runner/work/EffekseerForMultiLanguages/EffekseerForMultiLanguages.libEffekseerNativeForJava-universal.dylib
+          path:  /Users/runner/work/EffekseerForMultiLanguages/EffekseerForMultiLanguages/libEffekseerNativeForJava-universal.dylib
