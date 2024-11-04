@@ -17,10 +17,10 @@ jobs:
             scriptExt: "sh"
             libExt: "dylib"
             name: "x86_64"
-          # - os: macos-13-xlarge
-          #   scriptExt: "sh"
-          #   libExt: "dylib"
-          #   name: "aarch64"
+          - os: macos-13-arm64
+            scriptExt: "sh"
+            libExt: "dylib"
+            name: "aarch64"
     name: Build Natives - ${{ matrix.name }}
     runs-on:  ${{ matrix.os }}
     steps:
