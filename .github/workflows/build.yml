@@ -75,4 +75,4 @@ jobs:
         shell: bash
         run: |
           pwd
-          lipo -create -o "libEffekseerNativeForJava-universal.dylib" "libEffekseerNativeForJava-x86_64.dylib" "libEffekseerNativeForJava-aarch64.dylib"
+          lipo -create -o "libEffekseerNativeForJava-universal.dylib" "./libEffekseerNativeForJava-x86_64.dylib/libEffekseerNativeForJava.dylib" "./libEffekseerNativeForJava-aarch64.dylib/libEffekseerNativeForJava.dylib"
