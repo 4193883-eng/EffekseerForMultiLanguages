@@ -59,4 +59,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: libEffekseerNativeForJava-${{ matrix.name }}.dylib
-          path: src/cpp/libEffekseerNativeForJava.dylib
+          path:  /Users/runner/work/EffekseerForMultiLanguages/EffekseerForMultiLanguages/build/src/cpp/libEffekseerNativeForJava.dylib
