@@ -63,4 +63,11 @@ jobs:
       - name: Download binaries
         uses: actions/download-artifact@v4
       - name: Display structure of downloaded files
-        run: ls -R
+        run: | 
+          ls -R
+          pwd
+      - name: Build universal binary
+        shell: bash
+        run: |
+          pwd
+          lipo -create -o libEffekseerNativeForJava-universal.dylib libEffekseerNativeForJava-x86_64.dylib libEffekseerNativeForJava-aarch64.dylib
