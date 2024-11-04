@@ -17,10 +17,10 @@ jobs:
             scriptExt: "sh"
             libExt: "dylib"
             name: "x86_64"
-          - os: macos-13-xlarge
-            scriptExt: "sh"
-            libExt: "dylib"
-            name: "aarch64"
+          # - os: macos-13-xlarge
+          #   scriptExt: "sh"
+          #   libExt: "dylib"
+          #   name: "aarch64"
     name: Build Natives - ${{ matrix.name }}
     runs-on:  ${{ matrix.os }}
     steps:
@@ -55,10 +55,8 @@ jobs:
           cmake -D BUILD_DX12=OFF -D BUILD_EXAMPLES=OFF ..
           cmake --build . --config Release
           dest="dist-native/${{ matrix.name }}"
-          mkdir -p "$dest"
-          cp -v src/cpp/Release/libEffekseerNativeForJava.dylib "$dest"||cp -v src/cpp/libEffekseerNativeForJava.dylib "$dest"
       - name: Upload Natives
         uses: actions/upload-artifact@v4
         with:
           name: libEffekseerNativeForJava-${{ matrix.name }}.dylib
-          path: build/dist-native/libEffekseerNativeForJava.dylib
+          path: src/cpp/libEffekseerNativeForJava.dylib
