@@ -76,3 +76,8 @@ jobs:
         run: |
           pwd
           lipo -create -o "libEffekseerNativeForJava-universal.dylib" "./libEffekseerNativeForJava-x86_64.dylib/libEffekseerNativeForJava.dylib" "./libEffekseerNativeForJava-aarch64.dylib/libEffekseerNativeForJava.dylib"
+      - name: Upload Universal
+        uses: actions/upload-artifact@v4
+        with:
+          name: libEffekseerNativeForJava-universal.dylib
+          path:  /Users/runner/work/EffekseerForMultiLanguages/EffekseerForMultiLanguages.libEffekseerNativeForJava-universal.dylib
